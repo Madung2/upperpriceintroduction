@@ -1,0 +1,286 @@
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="../static/img/favicon.ico" type="image/ico">
+    <title>UPPER PRICE</title>
+
+    <meta property="og:title" content="UPPER PRICE"/>
+    <meta property="og:description" content="Introduce Our Team"/>
+    <meta property="og:image" content="/static/img/upper.png"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- main css -->
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/responsive.css">
+
+    <style>
+
+        .align_center {
+            display: table;
+            margin: 30px auto 15px auto;
+        }
+
+        .home_banner_area .banner_inner .banner_content .media .d-flex {
+            padding-right: 0px;
+        }
+
+        .media-body {
+            margin: 30px auto 50px auto;
+        }
+
+        .team_text {
+            margin-top: 30px;
+        }
+
+        .team_color {
+            margin: 20px auto 20px auto;
+            padding: 10px;
+        }
+
+        .our_rules {
+            margin: 50px auto 30px auto;
+            padding: 10px;
+        }
+
+        .img_team {
+            display: block;
+            margin: 0 auto;
+            width: 130px;
+            height: auto;
+        }
+
+    </style>
+    <script>
+        $(document).ready(function () {
+            show_comment()
+        });
+
+        function save_comment() {
+            let nicname = $('#name').val()
+            let comment = $('#comment').val()
+            $.ajax({
+                type: 'POST',
+                url: '/team_comment',
+                data: {nicname_give: nicname, comment_give: comment},
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload()
+                }
+            })
+        }
+
+        function show_comment() {
+            $.ajax({
+                type: "GET",
+                url: "/team_comment",
+                data: {},
+                success: function (response) {
+                    let rows = response['comments']
+                    for (let i = 0; i < rows.length; i++) {
+                        let nicname = rows[i]['nicname']
+                        let comment = rows[i]['comment']
+
+                        let temp_html = `<div class="card">
+                                                <div class="card-body">
+                                                    <blockquote class="blockquote mb-0">
+                                                        <p>${comment}</p>
+                                                        <footer class="blockquote-footer">${nicname}</footer>
+                                                    </blockquote>
+                                                </div>
+                                            </div>`
+                        $('#comment-list').append(temp_html)
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+
+<!--================ 헤더 파트 =================-->
+    <header class="header_area">
+        <div class="main_menu">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container box_1620">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <a class="navbar-brand logo_h" href="/">
+                        <img src="../static/img/logo.png" alt="">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav menu_nav ml-auto">
+                            <li class="nav-item active"><a class="nav-link" href="/">HOME</a></li>
+                            <li class="nav-item submenu dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">MEMBERS</a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item"><a class="nav-link" href="/Eom">KWAN YONG EOM</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/Lee">HO BIN LEE</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/Choi">JOON HEON CHOI</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/Han">YE SEUL HAN</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item"><a class="nav-link"
+                                                    href="https://online.spartacodingclub.kr/nbcamp/records">SPARTA</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+<!--================ 홈 배너 파트 =================-->
+<section class="home_banner_area">
+    <div class="container box_1620">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="align_center">
+                <div class="banner_content">
+                    <div class="media">
+                        <div class="d-flex">
+                            <img src="/static/img/upper.png" alt="">
+                        </div>
+                        <br/>
+                    </div>
+                    <div class="media">
+                        <div class="media-body">
+                            <div class="personal_text">
+                                <br/>
+                                <center><h3>TEAM UPPER PRICE</h3></center>
+                                <br/>
+                                <center><h5>WIN-WIN PARTNERSHIP</h5></center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--================ 팀 소개 파트 =================-->
+<section class="welcome_area p_120">
+    <div class="container">
+        <div class="main_title">
+            <div class="team_text">
+                <div class="team_color">
+                    <h2>TEAM COLOR</h2>
+                    <br>
+                    <h3>다양한 MBTI에서 오는 시너지 효과</h3>
+                    <h3>심플함을 추구</h3>
+                    <h3>커뮤니케이션 중시</h3>
+                </div>
+                <div class="our_rules">
+                    <h2>OUR RULES</h2>
+                    <br>
+                    <h3>항상 예의있게</h3>
+                    <h3>항상 함께 100% 집중</h3>
+                    <h3>정시 출근(9시)</h3>
+                    <h3>일지 작성 필수</h3>
+                    <h3>하락장 시 대화금지</h3>
+                    <h3>빚 보증 불가</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+<!--================ 개인 소개 파트 =================-->
+<section class="feature_area p_120">
+    <div class="container">
+        <div class="main_title">
+            <h2>Members</h2>
+        </div>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="col">
+                <div class="feature_item">
+                    <a href="/Eom">
+                        <img src="\static\img\img_eom.png"
+                             class="img_team">
+                    </a>
+                    <h4 style="text-align:center; margin-top:10px;">엄관용</h4>
+                </div>
+            </div>
+            <div class="col">
+                <div class="feature_item">
+                    <a href="/Lee">
+                        <img src="\static\img\img_lee.png"
+                             class="img_team">
+                    </a>
+                    <h4 style="text-align:center; margin-top:10px;">이호빈</h4>
+                </div>
+            </div>
+            <div class="col">
+                <div class="feature_item">
+                    <a href="/Choi">
+                        <img src="\static\img\img_choi.png"
+                             class="img_team">
+                    </a>
+                    <h4 style="text-align:center; margin-top:10px;">최준헌</h4>
+                </div>
+            </div>
+            <div class="col">
+                <div class="feature_item">
+                    <a href="/Han">
+                        <img src="\static\img\img_han.png"
+                             class="img_team">
+                    </a>
+                    <h4 style="text-align:center; margin-top:10px;">한예슬</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+<!--================ 응원 파트 =================-->
+<section class="welcome_area p_120">
+    <div class="container">
+        <div class="main_title">
+            <h2>응원 하기</h2>
+            <p>저희 팀에게 소중한 응원을 남겨주세요!</p>
+        </div>
+        <div class="feature_inner row">
+            <div class="mypost">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="name" placeholder="">
+                    <label for="floatingInput">닉네임을 입력해주세요.</label>
+                </div>
+                <div class="form-floating">
+                            <textarea class="form-control" placeholder="" id="comment"
+                                      style="height: 80px"></textarea>
+                    <label for="floatingTextarea2">소중한 한 말씀 부탁드립니다.</label>
+                </div>
+                <button onclick="save_comment()" type="button" class="btn btn-outline-danger">응원 남기기</button>
+            </div>
+            <div class="mycards" id="comment-list">
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
